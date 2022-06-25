@@ -1,0 +1,62 @@
+{
+    "polera": {
+        "color": {
+            "roja": {
+                "available": true
+            }, 
+            "verde": {
+                "available": true
+            },
+            "azul": {
+                "available": true
+            }
+        },
+        "talla": {
+            "S": {
+                "available": true
+            },
+            "M": {
+                "available": true
+            },
+            "L": {
+                "available": true
+            }
+        },
+        "material": {
+            "algodon": {
+                "available": true
+            },
+            "poliéster": {
+                "available": true
+            }
+        }
+    },
+    "calcetin": {
+        "tamaño": {
+            "chico": {
+                "available": true
+            },
+            "grande": {
+                "available": true
+            }
+        },
+        "color": {
+            "blanco": {
+                "available": true
+            },
+            "negro": {
+                "available": true
+            }
+        }
+    },
+    "gorro": {
+        "color": {
+            "café": {
+                "available": true
+            },
+            "negro": {
+                "available": true
+            }
+        }
+    }
+}
