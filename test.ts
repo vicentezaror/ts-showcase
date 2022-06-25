@@ -1,16 +1,16 @@
 import * as data from './data.json';
-// Supuesto: La información de los productos está en el archivo data.json
+// Supuesto: La informacion de los productos está en el archivo data.json
 
-// Supuesto: La información se estructura de esta forma (como se ve en data.json)
+// Supuesto: La informacion se estructura de esta forma (como se ve en data.json)
 const productData: { [key: string]: { // Nombre del producto
-                        [key: string]: { // Opción
+                        [key: string]: { // Opcion
                             [key: string]: { // Valor
                                 [key: string]: boolean // Disponibilidad
                             }
                         }
                     } } = data;
 
-// Función #1      
+// Funcion #1      
 // Supuesto: Recibe el nombre de un producto
 function getOptionsArray(product: string): object[] {
     try {
@@ -22,7 +22,7 @@ function getOptionsArray(product: string): object[] {
                     optionValues.push(value);
                 }
             }
-            optionsArray.push({ 'opción': option, 'valores': optionValues });
+            optionsArray.push({ 'opcion': option, 'valores': optionValues });
         }
         return optionsArray;
     } catch (error) {
@@ -30,11 +30,11 @@ function getOptionsArray(product: string): object[] {
     }
 }
 
-// Helpers función #2:
+// Helpers funcion #2:
 // Helper para conocer las últimas hojas del árbol
 function getLastChildOptionName(graph: any): any {
     if (Object.keys(Object.values(graph.valores)[0]).length === 0) {
-        return graph.opción;
+        return graph.opcion;
     } else {
         return getLastChildOptionName(Object.values(graph.valores)[0]);
     }
@@ -46,9 +46,9 @@ function nestNode(graph: any, option: any): any {
 
     const lastChildOptionName: any = getLastChildOptionName(newGraph);
 
-    if (newGraph.opción === lastChildOptionName) {
+    if (newGraph.opcion === lastChildOptionName) {
         for (var valor in newGraph.valores) {
-            newGraph.valores[valor] = {'opción': Object.keys(option)[0], 'valores': {}}
+            newGraph.valores[valor] = {'opcion': Object.keys(option)[0], 'valores': {}}
             newGraph.valores[valor].valores = {}
             for (var subValor in Object.values(option)[0]) {
                 if (Object.values(option)[0][subValor].available) {
@@ -64,11 +64,11 @@ function nestNode(graph: any, option: any): any {
     return newGraph;
 }
 
-// Helper para establecer código SKU
+// Helper para establecer codigo SKU
 function setSKUCodes(graph: any, productName: string, skuCode: string = ''): any {
     var skuNewGraph: any = graph;
     const lastChildOptionName = getLastChildOptionName(graph);
-    if (skuNewGraph.opción === lastChildOptionName) {
+    if (skuNewGraph.opcion === lastChildOptionName) {
         for (var valor in skuNewGraph.valores) {
             skuNewGraph.valores[valor] = { sku: `${productName}-${skuCode}-${valor}` };
         }
@@ -87,7 +87,7 @@ function buildGraph(rootOption: string, productOptions: any, productName: string
     var graph: any = {};
     var addedOptions: string[] = [];
     addedOptions.push(rootOption)
-    graph['opción'] = rootOption;
+    graph['opcion'] = rootOption;
     graph['valores'] = {};
     for (var value in productOptions[rootOption]) {
         graph['valores'][value] = {}
@@ -103,17 +103,17 @@ function buildGraph(rootOption: string, productOptions: any, productName: string
     return newGraph;
 }
 
-// Función #2:
-// Supuesto: Al igual que la función anterior, esta recibe el nombre de un producto
+// Funcion #2:
+// Supuesto: Al igual que la funcion anterior, esta recibe el nombre de un producto
 function getOptionsTree(product: string, chosenRoot: string = ''): object {
     try {
-        // Definición de raíz del árbol
+        // Definicion de raíz del árbol
         var rootOption = '';
         if (chosenRoot === '') {
             rootOption = Object.keys(productData[product])[0];
         } else {
             if (!(chosenRoot in productData[product])) {
-                throw 'La opción no existe o está mal escrita'
+                throw 'La opcion no existe o está mal escrita'
             } else {
                 rootOption = chosenRoot;
             }
@@ -128,13 +128,13 @@ function getOptionsTree(product: string, chosenRoot: string = ''): object {
 
 // // // Ejemplos
 //
-// // Función 1:
+// // Funcion 1:
 // console.log(getOptionsArray('polera'));
 // console.log(getOptionsArray('calcetin'));
 // console.log(getOptionsArray('gorro'));
 // console.log(getOptionsArray('otro'));
 //
-// // Función 2:
+// // Funcion 2:
 // console.log(getOptionsTree('polera', 'color'));
 // console.log(getOptionsTree('calcetin', 'tamaño'));
 // console.log(getOptionsTree('gorro'));
